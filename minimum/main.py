@@ -10,8 +10,10 @@ while cap.isOpened():
 		print("Can't receive frame (stream end?). Exiting...")
 		break
 	frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+
+	blur = cv.GaussianBlur(frame, (3, 3), 0)
 	
-	(min_val, max_val, min_loc, max_loc) = cv.minMaxLoc(frame)
+	(min_val, max_val, min_loc, max_loc) = cv.minMaxLoc(blur)
 
 	x = min_loc[0]
 	y = min_loc[1]
