@@ -10,23 +10,14 @@ while cap.isOpened():
 		print("Can't receive frame (stream end?). Exiting...")
 		break
 	frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-
-	# ret, thresh  = cv.threshold(frame, 50, 255, cv.THRESH_BINARY_INV)
-	thresh = cv.adaptiveThreshold(frame, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY_INV, 11, 20)
-
-	contours, _ = cv.findContours(thresh, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
-
-	# frame = cv.addWeighted(frame, 0.5, thresh, 0.5, 0)
 	
-	frame = cv.cvtColor(frame, cv.COLOR_GRAY2BGR)
+	(min_val, max_val, min_loc, max_loc) = cv.minMaxLoc(frame)
+
+	x = min_loc[0]
+	y = min_loc[1]
 	
-	if contours:
-		largest_contour = max(contours, key=cv.contourArea)
-
-		x, y, w, h = cv.boundingRect(largest_contour)
-
-		rect_size = (100, 100)
-		cv.rectangle(frame, (x - int(rect_size[0]/2), y - int(rect_size[1]/2)), 
+	rect_size = (100, 100)
+	cv.rectangle(frame, (x - int(rect_size[0]/2), y - int(rect_size[1]/2)), 
 			            (x + int(rect_size[0]/2), y + int(rect_size[1]/2)), (0, 255, 0), 2)
 
 	cv.imshow("frame", frame)
