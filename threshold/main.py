@@ -11,11 +11,12 @@ while cap.isOpened():
 		break
 	frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
-	ret, thresh  = cv.threshold(frame, 50, 255, cv.THRESH_BINARY_INV)
+	# ret, thresh  = cv.threshold(frame, 50, 255, cv.THRESH_BINARY_INV)
+	thresh = cv.adaptiveThreshold(frame, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY_INV, 11, 20)
 
 	contours, _ = cv.findContours(thresh, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
 
-	frame = cv.addWeighted(frame, 0.5, thresh, 0.5, 0)
+	# frame = cv.addWeighted(frame, 0.5, thresh, 0.5, 0)
 	
 	frame = cv.cvtColor(frame, cv.COLOR_GRAY2BGR)
 	
