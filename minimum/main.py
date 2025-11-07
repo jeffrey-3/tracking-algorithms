@@ -11,7 +11,7 @@ while cap.isOpened():
 		break
 	frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
-	blur = cv.GaussianBlur(frame, (3, 3), 0)
+	blur = cv.GaussianBlur(frame, (5, 5), 0)
 	
 	(min_val, max_val, min_loc, max_loc) = cv.minMaxLoc(blur)
 
